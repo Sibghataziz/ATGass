@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{object.body}}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container-fluid">
+            <h2>{{object.author.first_name}}&nbsp;&nbsp;
+                {% if object.author.id == user.id %}
+                <span><a href="{% url 'post_delete' object.pk %}" class="btn btn-primary btn-lg active"  style="font-size: medium;">Delete</a></span> 
+                {% endif %}
+            </h2><br>
+            <h4>{{post.title}}</h4>
+                <img src="media/{{ post.image }}" alt="">
+                <p><a href="{% url 'detail_post' post.pk %}" style="text-decoration:solid; color: black;">{{ post.summary|truncatechars:15}}</a></p>
+                <pre>{{object.content}}</pre>
+        </div>
+    {% else %}
+        <div>
+            <h4>To go further please Login!!!</h4>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    {% endif %}
+    
+{% endblock %}
+

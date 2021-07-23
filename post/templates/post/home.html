@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container-fluid">
+    <br>
+    <div class="row">
+    <div class="col-1">
+    <h1>Post</h1>
+    </div>
+    <div class="col-2">
+    {% if profile.typ == "Doctor" %}
+        <span><a class="nav-link active btn btn-primary btn-lg active" aria-current="page" href="{% url 'Add Post' %}">Add Post</a></span>
+    {% endif %}
+    </div>
+    </div>
+    {% for post in posts %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-5">
+            <img src="media/{{ post.image }}" alt="" style="max-width: 300px; max-height: 400px;">
+        </div>
+        <div class="col-5">
+            <h4>{{post.title}}
+                {% if post.draft %}
+                <span style="color: red;">
+                    Drafted
+                </span>
+                {% endif%}
+            </h4>
+            <p>{{ post.summary|truncatechars:15}}</p>
+        </div>
+        <br>
+        <hr>
+    </div>
+    <div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% else %}
+<div>
+    <h4>To go further please Login!!!</h4>
+    <a href="{% url 'login' %}" class="btn btn-primary btn-lg active">Login</a>
+</div>
+{% endif %}
+
+{% endblock %}

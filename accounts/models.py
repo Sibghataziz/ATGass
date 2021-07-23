@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 nature = [("Doctor","Doctor"),("Patient","Patient")]
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    type = models.CharField(max_length=255, choices=nature, default="")
+    typ = models.CharField(max_length=255, choices=nature, default="")
     line1 = models.CharField(max_length=255,default="")
     city = models.CharField(max_length=255,default="")
     pincode = models.IntegerField(default=0)
